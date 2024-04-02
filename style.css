@@ -1,0 +1,306 @@
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  font-family: "League Spartan", sans-serif;
+}
+
+header {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 150px;
+  height: 25%;
+  background-color: hsl(180, 29%, 50%);
+  background-image: url(./images/bg-header-desktop.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+main {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: hsl(180, 52%, 96%);
+  position: relative;
+}
+
+.btn {
+  padding: 0rem 0 0 0.4rem;
+  background-color: hsl(180, 31%, 95%);
+  color: hsl(180, 29%, 50%);
+  border-radius: 8px;
+  border: none;
+}
+
+/* ----------Filtered category styling start ------------ */
+#filtered-cat {
+  width: 60%;
+  min-height: 80px;
+  padding: 1rem 2rem;
+  background-color: white;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -30px;
+  box-shadow: 0px 1px 6px 2px hsla(180, 29%, 50%, 0.393);
+}
+
+#category {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+}
+
+.cross-btn {
+  padding: 0.4rem;
+  background-color: hsl(180, 29%, 50%);
+  text-align: center;
+  border: none;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.cross-btn:hover {
+  background-color: hsl(180, 14%, 20%);
+}
+
+.clear-btn {
+  border: none;
+  background-color: transparent;
+  color: hsl(180, 29%, 50%);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.clear-btn:hover {
+  text-decoration: underline;
+}
+
+/* ----------Filtered category styling end ------------ */
+#content-container {
+  width: 60%;
+  min-height: calc(100vh - 150px);
+  padding-top: 3rem;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card-container {
+  width: 100%;
+  padding: 1rem 0;
+  border-radius: 6px;
+  display: flex;
+  /* flex-wrap: wrap; */
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+  background-color: white;
+  box-shadow: 0px 1px 6px 2px hsla(180, 29%, 50%, 0.393);
+}
+
+.job-details {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.job-details img {
+  width: 80px;
+  min-height: 50px;
+  height: auto;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.company-info h3 {
+  font-size: 0.9rem;
+  color: hsl(180, 29%, 50%);
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stat-new {
+  padding: 0.4rem;
+  border-radius: 12px;
+  background-color: hsl(180, 29%, 50%);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+}
+
+.stat-featured {
+  padding: 0.4rem;
+  border-radius: 12px;
+  background-color: hsl(180, 14%, 20%);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+}
+
+.details h2 {
+  font-size: 1.2rem;
+  color: hsl(180, 14%, 20%);
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+
+.details h2:hover {
+  color: hsl(180, 29%, 50%);
+}
+
+.listed-date {
+  font-size: 0.9rem;
+  color: hsl(180, 8%, 52%);
+}
+
+.round-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: hsl(180, 8%, 52%);
+}
+
+.filter-btn {
+  font-family: inherit;
+  padding: 0.5rem;
+  font-weight: 800;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.filter-btn:hover {
+  background-color: hsl(180, 29%, 50%);
+  color: white;
+}
+/* ----------Job Listing card  styling start ------------ */
+
+/* ----------Job Listing card  styling end ------------ */
+
+/* ----------Media Query Starts ------------ */
+@media only screen and (max-width: 850) {
+  #category {
+    flex-wrap: wrap;
+  }
+}
+
+@media only screen and (max-width: 790px) {
+  #filtered-cat {
+    width: 80%;
+  }
+
+  .card-container {
+    flex-wrap: wrap;
+  }
+  .other-info-btn {
+    margin-top: 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 615px) {
+  header {
+    background-image: url(./images/bg-header-mobile.svg);
+  }
+
+  #filtered-cat {
+    width: 80%;
+    height: auto;
+    flex-wrap: nowrap;
+  }
+
+  #category {
+    flex-wrap: wrap;
+  }
+
+  #content-container {
+    width: 80%;
+    padding-top: 4rem;
+  }
+
+  .card-container {
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+
+  hr {
+    width: 80%;
+    color: hsl(180, 14%, 20%);
+    margin: 1rem 0;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  #category h4 {
+    font-size: 0.6rem;
+  }
+
+  .card-container {
+    padding: 1rem;
+  }
+
+  hr {
+    width: 90%;
+  }
+
+  .other-info-btn {
+    width: 90%;
+  }
+  .job-details {
+    width: 90%;
+    position: relative;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .job-details img {
+    width: 50px;
+    height: 50px;
+    margin-top: -35px;
+  }
+}
+
+/* ----------Media Query Ends ------------ */
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+}
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
