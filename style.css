@@ -57,12 +57,14 @@ main {
   justify-content: space-between;
   margin-top: -30px;
   box-shadow: 0px 1px 6px 2px hsla(180, 29%, 50%, 0.393);
+  display: none;
 }
 
 #category {
   display: flex;
   align-items: center;
   gap: 1vw;
+  flex-wrap: wrap;
 }
 
 .cross-btn {
@@ -228,7 +230,7 @@ main {
   .card-container {
     flex-wrap: wrap;
   }
-  .other-info-btn {
+  #filter-btn-container {
     margin-top: 0.5rem;
   }
 }
@@ -278,7 +280,7 @@ main {
     width: 90%;
   }
 
-  .other-info-btn {
+  #filter-btn-container {
     width: 90%;
   }
   .job-details {
