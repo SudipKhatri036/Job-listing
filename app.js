@@ -60,6 +60,7 @@ filterBtns.forEach((btn) => {
     const clickedBtn = e.currentTarget.textContent;
 
     filterCatContainer.style.display = "flex";
+
     const filterBtnHTML = `<h4 class="btn">
             ${clickedBtn || ""}
             <button class="cross-btn">
@@ -67,10 +68,14 @@ filterBtns.forEach((btn) => {
             </button>
           </h4>`;
 
-    filteredBtnArr.push(filterBtnHTML);
+    if (filteredBtnArr.length >= 0) {
+      filteredBtnArr.push(filterBtnHTML);
+    } else {
+      return;
+    }
 
     filteredBtnArr = [...new Set(filteredBtnArr)];
-    let uniqueBtnHTML;
+    let uniqueBtnHTML = "";
     if (filteredBtnArr.length < 1) {
       return;
     } else {
