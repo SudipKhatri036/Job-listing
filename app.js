@@ -1,10 +1,14 @@
+"use strict";
 const filterCatContainer = document.getElementById("filtered-cat");
 const filteredCategory = document.getElementById("category");
 const contentContainer = document.getElementById("content-container");
 const filterBtnContainer = document.getElementById("filter-btn-container");
-
+const crossBtns = document.querySelectorAll("h4 button.cross-btn");
+const clearBtn = document.querySelector(".clear-btn");
+let filteredBtnArr = [];
 //---------- Show List Of Jobposting ----------
 function renderJobListing(lists) {
+  contentContainer.innerHTML = "";
   return lists
     .map((list) => {
       return `<div class="card-container">
@@ -32,85 +36,156 @@ function renderJobListing(lists) {
           </div>
           <hr />
           <div id="filter-btn-container">
-                 ${renderBtn(list.role, list.languages, list.tools)}
+                 ${renderBtn(list.role, list.level, list.languages, list.tools)}
           </div>
         </div>`;
     })
     .join("");
 }
-function renderBtn(role, languages, tools) {
-  const tagsArr = [role, ...(languages || []), ...(tools || [])];
-  let tagsHTML = tagsArr
-    .map((tags) => {
-      return `<button class="btn filter-btn">${tags}</button>`;
-    })
-    .join("");
-  return tagsHTML;
+
+// Code To Render btn in listing div
+function renderBtn(role, level, languages, tools) {
+  // Initialize an array to store HTML strings of filter buttons
+  const filterBtnsHTML = [];
+
+  // Create filter button for the role
+  const roleBtnHTML = `<button class="btn filter-btn"  data-role="${role}">${role}</button>`;
+  filterBtnsHTML.push(roleBtnHTML);
+
+  const leveBtnlHTML = `<button class="btn filter-btn"  data-level="${level}">${level}</button>`;
+  filterBtnsHTML.push(leveBtnlHTML);
+  // Create filter buttons for each language
+  languages.forEach((language) => {
+    const languageBtnHTML = `<button class="btn filter-btn"  data-language="${language}">${language}</button>`;
+    filterBtnsHTML.push(languageBtnHTML);
+  });
+
+  // Create filter buttons for each tool
+  tools.forEach((tool) => {
+    const toolBtnHTML = `<button class="btn filter-btn"  data-tool="${tool}">${tool}</button>`;
+    filterBtnsHTML.push(toolBtnHTML);
+  });
+
+  // Join all filter button HTML strings into a single string and return
+  return filterBtnsHTML.join("");
 }
 
-let jobsData = renderJobListing(jobData);
-contentContainer.innerHTML = jobsData;
-
+contentContainer.innerHTML = renderJobListing(jobData);
+const cardContainers = document.querySelectorAll(".card-container");
 const filterBtns = document.querySelectorAll("#filter-btn-container button");
 
-let filteredBtnArr = [];
+// Function for removing filter
+function removeFilter(el) {
+  const btnFilters = document.querySelectorAll(".filter-btn");
+  el.remove();
 
+  const elText = el.innerText.trim();
+  // Getting index of h4 elements in array
+  const idx = filteredBtnArr.findIndex((item) => {
+    return item === elText;
+  });
+
+  // Removing the clicked filters btn from Array
+  filteredBtnArr.splice(idx, 1);
+  filterListItems();
+
+  // removing active class from matched condition
+  btnFilters.forEach((btn) => {
+    if (btn.innerText === elText) {
+      btn.classList.remove("active");
+    }
+  });
+
+  if (filteredBtnArr.length === 0) {
+    filterCatContainer.style.display = "none";
+  }
+}
+
+// Rendering filter button function
+function renderFilteredButtons(textData) {
+  if (filteredBtnArr.includes(textData)) return;
+
+  filterCatContainer.style.display = "flex";
+  const h4El = document.createElement("h4");
+  h4El.classList.add("btn");
+  h4El.innerHTML = ` ${textData}
+  <button class="cross-btn">
+    <img src="./images/icon-remove.svg" alt="Remove logo" />
+  </button>`;
+  filteredCategory.append(h4El);
+  filteredBtnArr.push(textData);
+
+  // Attach event listeners to remove buttons in the filtered category
+  const removeButton = h4El.firstElementChild;
+  removeButton.addEventListener("click", () => removeFilter(h4El));
+}
+
+// Evenet Listener for all filter btn in main container
 filterBtns.forEach((btn) => {
   btn.addEventListener("click", (e) => {
-    const clickedBtn = e.currentTarget.textContent;
+    const clickedBtn = e.currentTarget;
+    const dataObjKeys = Object.keys(clickedBtn.dataset);
 
-    filterCatContainer.style.display = "flex";
+    const tagsEl = document.querySelectorAll(`[data-${dataObjKeys}]`);
 
-    const filterBtnHTML = `<h4 class="btn">
-            ${clickedBtn || ""}
-            <button class="cross-btn">
-              <img src="./images/icon-remove.svg" alt="Remove logo" />
-            </button>
-          </h4>`;
-
-    if (filteredBtnArr.length >= 0) {
-      filteredBtnArr.push(filterBtnHTML);
-    } else {
-      return;
-    }
-
-    filteredBtnArr = [...new Set(filteredBtnArr)];
-    let uniqueBtnHTML = "";
-    if (filteredBtnArr.length < 1) {
-      return;
-    } else {
-      // filteredBtnArr.shift();
-      for (uniqueBtn of filteredBtnArr) {
-        // if (uniqueBtn) {
-        //   return;
-        // }
-        uniqueBtnHTML += `${uniqueBtn}`;
+    tagsEl.forEach((tag) => {
+      if (tag.innerText === clickedBtn.innerText) {
+        tag.classList.add("active");
       }
-    }
+    });
 
-    // const filteredBtns = document.querySelectorAll("#category h4");
-
-    // for (btn of filteredBtns) {
-    //   if (btn.textContent === clickedBtn) {
-    //     console.log("I was entered");
-    //     console.log("I was entered");
-    //     return;
-    //   }
-    // }
-    filteredCategory.innerHTML = uniqueBtnHTML;
+    renderFilteredButtons(clickedBtn.innerText);
+    filterListItems();
   });
 });
 
-document.querySelector(".clear-btn").addEventListener("click", () => {
+// Code For function of clear Btn
+clearBtn.addEventListener("click", () => {
   filteredBtnArr = [];
   filteredCategory.innerHTML = "";
   filterCatContainer.style.display = "none";
-});
-
-const crossBtns = document.querySelectorAll(".btn .cross-btn");
-
-crossBtns.forEach((crossBtn) => {
-  crossBtn.addEventListener("click", (e) => {
-    console.log(e.currentTarget.parent);
+  document.querySelectorAll(".card-container").forEach((card) => {
+    card.classList.remove("hide");
+  });
+  document.querySelectorAll(".filter-btn").forEach((btn) => {
+    btn.classList.remove("active");
   });
 });
+
+function filterListItems() {
+  for (let i = 0; i < cardContainers.length; i++) {
+    cardContainers[i].classList.add("hide");
+  }
+
+  const arr = [...new Set(filteredBtnArr)];
+
+  for (let j = 0; j < cardContainers.length; j++) {
+    const roles = cardContainers[j].querySelectorAll("[data-role]");
+    const levels = cardContainers[j].querySelectorAll("[data-level]");
+    const langs = cardContainers[j].querySelectorAll("[data-language]");
+    const tools = cardContainers[j].querySelectorAll("[data-tool]");
+
+    const listItems = pushItemsToArray([roles, levels, langs, tools]);
+
+    const doesInclude = arr.every((item) => {
+      return listItems.includes(item);
+    });
+
+    if (doesInclude) {
+      cardContainers[j].classList.remove("hide");
+    }
+  }
+}
+
+// Helper Functions
+function pushItemsToArray(arr) {
+  const arrayOfTexts = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    arr[i].forEach((item) => {
+      arrayOfTexts.push(item.innerText);
+    });
+  }
+
+  return arrayOfTexts;
+}

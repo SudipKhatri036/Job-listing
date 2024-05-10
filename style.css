@@ -214,7 +214,14 @@ main {
 /* ----------Job Listing card  styling start ------------ */
 
 /* ----------Job Listing card  styling end ------------ */
+.active {
+  background-color: hsl(180, 29%, 50%);
+  color: white;
+}
 
+.hide {
+  display: none;
+}
 /* ----------Media Query Starts ------------ */
 @media only screen and (max-width: 850) {
   #category {
@@ -282,6 +289,10 @@ main {
 
   #filter-btn-container {
     width: 90%;
+  }
+
+  #filter-btn-container .filter-btn {
+    margin-top: 0.5rem;
   }
   .job-details {
     width: 90%;
