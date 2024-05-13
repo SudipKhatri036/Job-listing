@@ -11,7 +11,7 @@ function renderJobListing(lists) {
   contentContainer.innerHTML = "";
   return lists
     .map((list) => {
-      return `<div class="card-container">
+      return `<div class="card-container ${list.featured ? "featured" : ""}">
           <div class="job-details">
             <img src="${list.logo}" alt="${list.company} logo" />
             <div class="details">
