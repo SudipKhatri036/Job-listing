@@ -120,6 +120,43 @@ function renderFilteredButtons(textData) {
   removeButton.addEventListener("click", () => removeFilter(h4El));
 }
 
+function filterListItems() {
+  for (let i = 0; i < cardContainers.length; i++) {
+    cardContainers[i].classList.add("hide");
+  }
+
+  const arr = [...new Set(filteredBtnArr)];
+
+  for (let j = 0; j < cardContainers.length; j++) {
+    const roles = cardContainers[j].querySelectorAll("[data-role]");
+    const levels = cardContainers[j].querySelectorAll("[data-level]");
+    const langs = cardContainers[j].querySelectorAll("[data-language]");
+    const tools = cardContainers[j].querySelectorAll("[data-tool]");
+
+    const listItems = pushItemsToArray([roles, levels, langs, tools]);
+
+    const doesInclude = arr.every((item) => {
+      return listItems.includes(item);
+    });
+
+    if (doesInclude) {
+      cardContainers[j].classList.remove("hide");
+    }
+  }
+}
+// Helper Functions
+function pushItemsToArray(arr) {
+  const arrayOfTexts = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    arr[i].forEach((item) => {
+      arrayOfTexts.push(item.innerText);
+    });
+  }
+
+  return arrayOfTexts;
+}
+
 // Evenet Listener for all filter btn in main container
 filterBtns.forEach((btn) => {
   btn.addEventListener("click", (e) => {
@@ -151,41 +188,3 @@ clearBtn.addEventListener("click", () => {
     btn.classList.remove("active");
   });
 });
-
-function filterListItems() {
-  for (let i = 0; i < cardContainers.length; i++) {
-    cardContainers[i].classList.add("hide");
-  }
-
-  const arr = [...new Set(filteredBtnArr)];
-
-  for (let j = 0; j < cardContainers.length; j++) {
-    const roles = cardContainers[j].querySelectorAll("[data-role]");
-    const levels = cardContainers[j].querySelectorAll("[data-level]");
-    const langs = cardContainers[j].querySelectorAll("[data-language]");
-    const tools = cardContainers[j].querySelectorAll("[data-tool]");
-
-    const listItems = pushItemsToArray([roles, levels, langs, tools]);
-
-    const doesInclude = arr.every((item) => {
-      return listItems.includes(item);
-    });
-
-    if (doesInclude) {
-      cardContainers[j].classList.remove("hide");
-    }
-  }
-}
-
-// Helper Functions
-function pushItemsToArray(arr) {
-  const arrayOfTexts = [];
-
-  for (let i = 0; i < arr.length; i++) {
-    arr[i].forEach((item) => {
-      arrayOfTexts.push(item.innerText);
-    });
-  }
-
-  return arrayOfTexts;
-}
