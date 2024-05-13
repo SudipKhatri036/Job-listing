@@ -2,7 +2,7 @@
 const filterCatContainer = document.getElementById("filtered-cat");
 const filteredCategory = document.getElementById("category");
 const contentContainer = document.getElementById("content-container");
-const filterBtnContainer = document.getElementById("filter-btn-container");
+const filterBtnContainer = document.querySelector(".filter-btn-container");
 const crossBtns = document.querySelectorAll("h4 button.cross-btn");
 const clearBtn = document.querySelector(".clear-btn");
 let filteredBtnArr = [];
@@ -35,7 +35,7 @@ function renderJobListing(lists) {
             </div>
           </div>
           <hr />
-          <div id="filter-btn-container">
+          <div class="filter-btn-container">
                  ${renderBtn(list.role, list.level, list.languages, list.tools)}
           </div>
         </div>`;
@@ -72,7 +72,7 @@ function renderBtn(role, level, languages, tools) {
 
 contentContainer.innerHTML = renderJobListing(jobData);
 const cardContainers = document.querySelectorAll(".card-container");
-const filterBtns = document.querySelectorAll("#filter-btn-container button");
+const filterBtns = document.querySelectorAll(".filter-btn-container button");
 
 // Function for removing filter
 function removeFilter(el) {
