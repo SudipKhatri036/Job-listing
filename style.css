@@ -237,7 +237,7 @@ main {
   .card-container {
     flex-wrap: wrap;
   }
-  #filter-btn-container {
+  .filter-btn-container {
     margin-top: 0.5rem;
   }
 }
@@ -287,11 +287,11 @@ main {
     width: 90%;
   }
 
-  #filter-btn-container {
+  .filter-btn-container {
     width: 90%;
   }
 
-  #filter-btn-container .filter-btn {
+  .filter-btn-container .filter-btn {
     margin-top: 0.5rem;
   }
   .job-details {
